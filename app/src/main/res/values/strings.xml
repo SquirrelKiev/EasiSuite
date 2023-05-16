@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">EasiSuite</string>
+    <string name="home">Home</string>
+    <string name="audio_player">Audio Player</string>
+</resources>
