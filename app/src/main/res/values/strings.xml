@@ -1,6 +1,17 @@
 <resources>
     <string name="app_name">EasiSuite</string>
     <string name="home">Home</string>
+    <string name="audio_player">Audio Player</string>
+
     <string name="headphones_device_name">Wireless Headset</string>
     <string name="headphones_link">https://www.tts-group.co.uk/wireless-headset/1007344.html</string>
+    <string name="headphones_description">Get rid of all those messy wires with these unique and robust bluetooth headphones.
+
+The bluetooth technology leaves you completely free to move around the classroom with up to a 20 metre range.</string>
+
+    <string name="speakers_device_name">Outdoor Speaker</string>
+    <string name="speakers_link">https://www.tts-group.co.uk/wireless-outdoor-bluetooth-speaker/1009945.html</string>
+    <string name="speakers_description">Experience crystal clear sound at high volume from any device with this showerproof, Bluetooth speaker.
+
+Bluetooth connectivity means you can link your device and stream sound directly to the speaker. Great for outside group play!</string>
 </resources>

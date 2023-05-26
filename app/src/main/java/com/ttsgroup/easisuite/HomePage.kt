@@ -42,11 +42,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class DeviceCard(val name: String, val route: String, val productUrl: String) : Parcelable
+data class DeviceCard(val name: String, val route: String, val productUrl: String, val description: String, val drawable: Int) : Parcelable
 
 class HomePage {
     @Composable
@@ -62,12 +61,22 @@ class HomePage {
             columns = GridCells.Fixed(2),
             modifier = Modifier.padding(all = 20.dp),
         ) {
+            // TODO: move to remember - best practice
             this.items(
                 listOf(
                     DeviceCard(
-                        context.resources.getString(Screen.AudioPlayer.resourceId),
+                        context.resources.getString(R.string.headphones_device_name),
                         Screen.AudioPlayer.route,
-                        context.resources.getString(R.string.headphones_link)
+                        context.resources.getString(R.string.headphones_link),
+                        context.resources.getString(R.string.headphones_description),
+                        R.drawable.headphones
+                    ),
+                    DeviceCard(
+                        context.resources.getString(R.string.speakers_device_name),
+                        Screen.AudioPlayer.route,
+                        context.resources.getString(R.string.speakers_link),
+                        context.resources.getString(R.string.speakers_description),
+                        R.drawable.speaker
                     ),
                 )
             )
@@ -103,7 +112,9 @@ class HomePage {
                     (
                     "Device name",
                     "nowhere",
-                    "https://example.com"
+                    "https://example.com",
+                    "wow look at this really awesome product i hope its safe",
+                    R.drawable.ic_launcher_background
                 ), onClick = {})
         }
 
@@ -138,8 +149,8 @@ class HomePage {
                 }
             }
             Image(
-                painter = painterResource(id = R.drawable.ic_launcher_background),
-                contentDescription = "farts",
+                painter = painterResource(id = activeDeviceCard.drawable),
+                contentDescription = "",
                 contentScale = ContentScale.FillWidth,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -148,7 +159,7 @@ class HomePage {
             )
             Text(
                 style = MaterialTheme.typography.bodyLarge,
-                text = "Lorem ipsum dolor sit amet Clita invidunt at rebum stet blandit consetetur sit esse. ",
+                text = activeDeviceCard.description,
             )
             Row(
                 horizontalArrangement = Arrangement.spacedBy(24.dp, Alignment.CenterHorizontally),
@@ -179,8 +190,8 @@ class HomePage {
         )
         {
             Image(
-                painter = painterResource(id = R.drawable.ic_launcher_background),
-                contentDescription = "wudenyu",
+                painter = painterResource(id = device.drawable),
+                contentDescription = "",
                 contentScale = ContentScale.FillWidth,
                 modifier = Modifier.fillMaxWidth()
             )
