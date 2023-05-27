@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.Button
@@ -30,6 +32,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -56,30 +59,30 @@ class HomePage {
         val bottomSheetState = rememberModalBottomSheetState(
             skipPartiallyExpanded = true
         )
+        val deviceCards = remember {
+            listOf(
+                DeviceCard(
+                    context.resources.getString(R.string.headphones_device_name),
+                    Screen.AudioPlayer.route,
+                    context.resources.getString(R.string.headphones_link),
+                    context.resources.getString(R.string.headphones_description),
+                    R.drawable.headphones
+                ),
+                DeviceCard(
+                    context.resources.getString(R.string.speakers_device_name),
+                    Screen.AudioPlayer.route,
+                    context.resources.getString(R.string.speakers_link),
+                    context.resources.getString(R.string.speakers_description),
+                    R.drawable.speaker
+                ),
+            )
+        }
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             modifier = Modifier.padding(all = 20.dp),
         ) {
-            // TODO: move to remember - best practice
-            this.items(
-                listOf(
-                    DeviceCard(
-                        context.resources.getString(R.string.headphones_device_name),
-                        Screen.AudioPlayer.route,
-                        context.resources.getString(R.string.headphones_link),
-                        context.resources.getString(R.string.headphones_description),
-                        R.drawable.headphones
-                    ),
-                    DeviceCard(
-                        context.resources.getString(R.string.speakers_device_name),
-                        Screen.AudioPlayer.route,
-                        context.resources.getString(R.string.speakers_link),
-                        context.resources.getString(R.string.speakers_description),
-                        R.drawable.speaker
-                    ),
-                )
-            )
+            items(deviceCards)
             { device: DeviceCard ->
                 PageCard(device, onClick =
                 {
@@ -130,7 +133,8 @@ class HomePage {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = padding, start = padding, end = padding),
+                .padding(bottom = padding, start = padding, end = padding)
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
